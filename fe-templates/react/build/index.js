@@ -1,21 +1,21 @@
 /*
- * production build
+ * @script production build
  */
 
 const fs = require('fs');
 const os = require('os');
 const callfile = require('child_process');
-const join = require('path').join;
+const { join } = require('path');
 const CONFIG = require(join(__dirname, '../package.json'));
-let dirname = process.cwd();
+const dirname = process.cwd();
 
-let platform = os.platform();
-const isWIN = ~platform.indexOf('win');
+const platform = os.platform();
+const isWIN = platform.includes('win32');
 
 /**
  * render package.json -> README.md
  */
-let renderREADME = () => {
+const renderREADME = () => {
   const _mdPath = join(__dirname, '../README.md');
   if (fs.existsSync(_mdPath)) {
     let _readmeData = fs.readFileSync(_mdPath);
@@ -26,7 +26,7 @@ let renderREADME = () => {
 - description: ${CONFIG.description}
 - author: ${CONFIG.author}
 - task: ${CONFIG.task || ''}
-- build time: ${new Date().toLocaleString()}
+- build time: ${new Date()}
 
 ------`;
     _readmeData = _info + String(_readmeData).replace(/------(([\s\S])*?)------/, '');
@@ -41,7 +41,7 @@ let renderREADME = () => {
 /**
  * run shell
  */
-let runShell = () => {
+const runShell = () => {
   callfile.execFile(
     join(__dirname, (isWIN && 'index.bat') || 'index.sh'),
     ['-V', CONFIG.version, '-U', CONFIG.author],
