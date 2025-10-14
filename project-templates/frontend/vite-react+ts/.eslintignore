@@ -1,3 +1,23 @@
-/node_modules/*
-src/js/lib/*.js
-lib/*.js
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Configuration files
+*.config.js
+
+# Environment files
+.env*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
